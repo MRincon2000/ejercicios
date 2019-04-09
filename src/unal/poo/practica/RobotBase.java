@@ -19,42 +19,56 @@ public class RobotBase
             
             //Direction.NORTH, EAST, SOUTH, WEST
             //Definicion de la ubicacion del robot, Ciudad, posicion, Direccion, Numero things en el bolso.
-            estudiante = new Robot(objetos,0, 2, Direction.EAST,10);
-            
-	    //Mover una interseccion en el sentido al cual este apuntando el objeto.
-            estudiante.move ();
-            
-            //Girar a la izquierda
-            estudiante.turnLeft();
-            
-            //Tomando decisiones, Si puedo tomar un Thing
-            boolean puedeTomar = estudiante.canPickThing();
-            
-            //Tomar un Thing
-            if(puedeTomar == true)
-               estudiante.pickThing();
-            
-            //Especifica el numero de Thing que tiene en robot en el bolso
-            int numeroThings = estudiante.countThingsInBackpack();
-            
-            //Poner Thing, se debe validar que tenga things en el bolso
-            estudiante.putThing();
-                       
-            //Si el frente esta libre de Wall
-            estudiante.frontIsClear();
-            
-            //Invocando una funcion
-            creacionFuncion(4);
-            
-            //Toman un Thing
-            estudiante.pickThing();
-            
-            
-	}
+            estudiante = new Robot(objetos,1, 0, Direction.EAST,10);
+            int columnas = 5;
+            int filas= 5;
+        for (int i = 0; i< 5;i++){
+            columnas=recogerFila(columnas);
+        filas=recogerColumna(filas);
         
-        public static void creacionFuncion(int parametroEntrada){
-            for (int i = 0; i < parametroEntrada; i++) 
-                estudiante.move();
+	}
         }
+        
+        public static void girarDerecha(){
+  
+            for (int i=0;i<3;i++){
+                estudiante.turnLeft();
+            }
+            
+        }
+        public static void voltearse(){
+            for (int i=0;i<2;i++){
+                estudiante.turnLeft();
+            }
+        }
+        public static void recogerUno (){
+            if (estudiante.canPickThing() ==true){
+                estudiante.pickThing();
+            }
+        }
+        public static void recogerTodos (){
+            while (estudiante.canPickThing() ==true){
+                estudiante.pickThing();
+            }
+        }
+            public static int recogerFila ( int columnas){
+            for (int i =0;i<columnas;i++){
+                estudiante.move();
+                recogerTodos();
+             
+            }
+            girarDerecha();
+            return columnas-1;
+            }
+             public static int recogerColumna ( int filas){
+            for (int i =0;i<filas;i++){
+                estudiante.move();
+                recogerTodos();
+             
+            }
+            girarDerecha();
+            return filas-1;
+            }
 }
+        
 
